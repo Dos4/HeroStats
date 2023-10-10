@@ -1,0 +1,71 @@
+class Stat
+{
+    public string Name { get; set; }
+    public int Value { get; set; }
+}
+
+class Health : Stat
+{
+    public Health(string name, int value)
+    {
+        Name = name;
+        Value = value;
+    }
+}
+
+class Damage : Stat
+{
+    public Damage(string name, int value)
+    {
+        Name = name;
+        Value = value;
+    }
+}
+
+class Hero
+{
+    public string Name { set; get; }
+    public Health Health { get; set; }
+    public Damage Damage { get; set; }
+
+    public void Attack(Hero hero)
+    {
+        Console.WriteLine($"{Name} with {Health.Value}HP attacked {hero.Name} with {hero.Health.Value}HP");
+        Console.WriteLine($"{hero.Name} -{Damage.Value}hp\n");
+        hero.Health.Value -= Damage.Value;
+
+        if (hero.Health.Value <= 0)
+        {
+            Console.WriteLine($"{hero.Name} killed by {Name} in the battle");
+        }
+        else
+        {
+            Console.WriteLine($"{hero.Name} now have {hero.Health.Value}HP\n");
+        }
+    }
+}
+
+internal class Program
+{
+    static void Main(string[] args)
+    {
+
+        Hero axe = new Hero
+        {
+            Name = "Axe",
+            Health = new Health("hp", 100),
+            Damage = new Damage("damage", 13),
+        };
+
+        Hero lina = new Hero
+        {
+            Name = "Lina",
+            Health = new Health("hp", 26),
+            Damage = new Damage("damage", 15),
+        };
+
+        axe.Attack(lina);
+
+        axe.Attack(lina);
+    }
+}
